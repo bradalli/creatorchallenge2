@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Photon.Pun;
+using Brad.KeepyUp.Networking;
 
 namespace Brad.KeepyUp
 {
@@ -10,6 +11,7 @@ namespace Brad.KeepyUp
     {
         [Tooltip("The local player instance. Use this to know if the local player is represented in the scene")]
         public static GameObject LocalPlayerInstance;
+        GameManager gmang;
 
         Rigidbody2D rb;
         [SerializeField] Rigidbody2D playerRb;
@@ -21,6 +23,7 @@ namespace Brad.KeepyUp
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.IsMine)
             {
+                gmang = GameObject.Find("GameManager").GetComponent<GameManager>();
                 Paddle_Multiplayer.LocalPlayerInstance = this.gameObject;
             }
             // #Critical
@@ -42,11 +45,14 @@ namespace Brad.KeepyUp
             }
         }
 
-        public void BallHit()
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (photonView.IsMine)
             {
-                gameObject.SendMessage("BallHitRewardIncrement");
+                if (collision.gameObject.CompareTag("Ball"))
+                {
+                    gmang.NextPlayerTurn();
+                }
             }
         }
     }

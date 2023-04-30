@@ -17,7 +17,8 @@ namespace Brad.KeepyUp
             {
                 collisionEnter2DEvent.Invoke();
                 transform.position = Vector3.up * 5;
-                gameObject.SetActive(false);
+                transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                //gameObject.SetActive(false);
             }
         }
     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1268352622994064355}
   - component: {fileID: 1268352622994064354}
   - component: {fileID: 5528306229531097558}
-  - component: {fileID: 7753080208910075301}
+  - component: {fileID: -3651004276605154968}
   m_Layer: 0
   m_Name: Client_Paddle
   m_TagString: Untagged
@@ -318,11 +318,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 7753080208910075301}
+  - {fileID: -3651004276605154968}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7753080208910075301
+--- !u!114 &-3651004276605154968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,13 +331,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268352622994064357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 10
 --- !u!1 &1268352624318259350
 GameObject:
   m_ObjectHideFlags: 0

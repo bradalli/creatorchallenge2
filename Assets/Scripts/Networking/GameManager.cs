@@ -9,11 +9,16 @@ using Photon.Realtime;
 
 namespace Brad.KeepyUp.Networking
 {
-    public class GameManager : MonoBehaviourPunCallbacks
+    public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         #region Public Fields
         [Tooltip("The prefab to use for representing the player")]
         public GameObject playerPrefab;
+        public GameObject sceneBall;
+        #endregion
+
+        #region Private Fields
+        int playerTurnIndex;
         #endregion
 
         #region Monobehaviour Callbacks
@@ -89,7 +94,32 @@ namespace Brad.KeepyUp.Networking
         {
             PhotonNetwork.LeaveRoom();
         }
+
+        public void NextPlayerTurn()
+        {
+            if (playerTurnIndex > PhotonNetwork.CurrentRoom.PlayerCount)
+                playerTurnIndex = 0;
+
+            else
+                playerTurnIndex++;
+
+            sceneBall.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.CurrentRoom.GetPlayer(playerTurnIndex));
+        }
         #endregion
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                // We own this player: send the others our data
+                stream.SendNext(playerTurnIndex);
+            }
+            else
+            {
+                // Network player, receive data
+                this.playerTurnIndex = (int)stream.ReceiveNext();
+            }
+        }
     }
 }
 
