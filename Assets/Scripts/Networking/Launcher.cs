@@ -15,6 +15,14 @@ namespace Brad.KeepyUp.Networking
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so a new room will be created.")]
         [SerializeField]
         private byte maxPlayersPerRoom = 4;
+
+        [Tooltip("The UI Panel to let the user enter their name, connect, and play.")]
+        [SerializeField]
+        private GameObject controlPanel;
+
+        [Tooltip("The UI Label to inform the user that the connection is in progress.")]
+        [SerializeField]
+        private GameObject progressLabel;
         #endregion
 
         #region Private Fields
@@ -35,6 +43,8 @@ namespace Brad.KeepyUp.Networking
         // MonoBehaviour method called on GameObject by Unity during early initialization phase.
         private void Start()
         {
+            progressLabel.SetActive(false);
+            controlPanel.SetActive(true);
         }
         #endregion
 
@@ -50,6 +60,9 @@ namespace Brad.KeepyUp.Networking
 
         public override void OnDisconnected(DisconnectCause cause)
         {
+            progressLabel.SetActive(false);
+            controlPanel.SetActive(true);
+
             Debug.LogWarningFormat("NETWORKING/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
         }
 
@@ -76,6 +89,9 @@ namespace Brad.KeepyUp.Networking
         /// </summary>
         public void Connect()
         {
+            progressLabel.SetActive(true);
+            controlPanel.SetActive(false);
+
             // We check if we are connected or not, we join if we are, else we initiate the connection to the server.
             if (PhotonNetwork.IsConnected)
             {
