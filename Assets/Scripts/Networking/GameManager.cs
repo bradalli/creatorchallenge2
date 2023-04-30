@@ -11,6 +11,34 @@ namespace Brad.KeepyUp.Networking
 {
     public class GameManager : MonoBehaviourPunCallbacks
     {
+        #region Public Fields
+        [Tooltip("The prefab to use for representing the player")]
+        public GameObject playerPrefab;
+        #endregion
+
+        #region Monobehaviour Callbacks
+        private void Start()
+        {
+            if(playerPrefab == null)
+            {
+                Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
+            }
+
+            else
+            {
+                if(Paddle_Multiplayer.LocalPlayerInstance == null)
+                {
+                    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
+                }
+                else
+                {
+                    Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+                }
+            }
+        }
+        #endregion
+
         #region Photon Callbacks
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -52,7 +80,7 @@ namespace Brad.KeepyUp.Networking
                 return;
             }
             Debug.LogFormat("PhotonNetwork: Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            PhotonNetwork.LoadLevel("Multiplayer Room");
+            PhotonNetwork.LoadLevel("Multiplayer_Room");
         }
         #endregion
 

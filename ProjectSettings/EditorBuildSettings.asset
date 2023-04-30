@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Launcher.unity
     guid: 262b01aeddda5e142afbd96f0769edb7
   - enabled: 1
-    path: Assets/Scenes/Room.unity
+    path: Assets/Scenes/Multiplayer_Room.unity
     guid: f7325aa73c4d12d459a0edd6708e6c4b
   - enabled: 1
-    path: Assets/Scenes/SinglePlayerScene.unity
+    path: Assets/Scenes/SinglePlayerScene_Room.unity
     guid: b3619ab5915068b46bb6f197a72ddc22
   m_configObjects: {}
