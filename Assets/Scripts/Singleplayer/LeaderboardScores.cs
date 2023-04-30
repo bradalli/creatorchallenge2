@@ -85,6 +85,7 @@ public class LeaderboardScores : MonoBehaviour
         DictionaryToArray();
         if (PlayerScoreDictionary.Count > 0) { ReorderLeaderboard(); }
 
+
         for (int i = 0; i < uiLeaderboardScorePanels.Length; i++)
         {
             //Set panel active depending on length of scores array
